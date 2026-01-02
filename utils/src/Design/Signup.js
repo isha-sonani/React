@@ -1,72 +1,3 @@
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-
-// const Signup = () => {
-//   const navigate = useNavigate();
-//   const [formData, setFormData] = useState({
-//     firstName: "",
-//     lastName: "",
-//     email: "",
-//     password: "",
-//     role: ""
-//   });
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const response = await fetch("http://localhost:5000/api/auth/signup", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(formData)
-//       });
-
-//       const data = await response.json();
-
-//       if (response.ok) {
-//         alert("Signup successful");
-//         navigate("/login");
-//       } else {
-//         alert(data.message);
-//       }
-//     } catch (error) {
-//       alert("Server error");
-//     }
-//   };
-
-//   return (
-//     <div style={{ width: "300px", margin: "100px auto" }}>
-//       <h2>Signup</h2>
-//       <form onSubmit={handleSubmit}>
-//         <input  type="text"  name="firstName"  placeholder="First Name"  value={formData.firstName}  onChange={handleChange}/>
-//         <br /><br />
-//         <input  type="text"  name="lastName"  placeholder="Last Name"  value={formData.lastName}  onChange={handleChange}/>
-//         <br /><br />
-//         <input  type="email"  name="email"  placeholder="Email"  value={formData.email}  onChange={handleChange}/>
-//         <br /><br />
-//         <input  type="password"  name="password" placeholder="Password"  value={formData.password}  onChange={handleChange}/>
-//         <br /><br />
-//         <select name="role" value={formData.role} onChange={handleChange}>
-//           <option value="">Select Role</option>
-//           <option value="user">User</option>
-//           <option value="admin">Admin</option>
-//         </select>
-//         <br /><br />
-//         <button type="submit">Signup</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Signup;
-
-
-
-
-
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -83,6 +14,10 @@ const Signup = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleCancel = () => {
+  setFormData({ firstName: "", lastName: "", email: "", password: "", role: "" });
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -113,6 +48,7 @@ const Signup = () => {
               <input className="form-control mb-2"
                 name="firstName"
                 placeholder="First name"
+                value={formData.firstName}
                 onChange={handleChange}
               />
             </div>
@@ -120,6 +56,7 @@ const Signup = () => {
               <input className="form-control mb-2"
                 name="lastName"
                 placeholder="Last name"
+                value={formData.lastName}
                 onChange={handleChange}
               />
             </div>
@@ -129,6 +66,7 @@ const Signup = () => {
             type="email"
             name="email"
             placeholder="Email"
+            value={formData.email}
             onChange={handleChange}
           />
 
@@ -136,11 +74,13 @@ const Signup = () => {
             type="password"
             name="password"
             placeholder="Password"
+            value={formData.password}
             onChange={handleChange}
           />
 
           <select className="form-select mb-3"
             name="role"
+            value={formData.role}
             onChange={handleChange}
           >
             <option value="">Select Role</option>
@@ -148,7 +88,8 @@ const Signup = () => {
             <option value="admin">Manager</option>
           </select>
 
-          <button className="btn btn-primary w-100">Signup</button>
+          <button className="btn btn-primary w-100">Signup</button><br /><br />
+          <button type="button" className="btn btn-success w-100"onClick={handleCancel}>Cancel </button>
         </form>
 
         <p className="text-center mt-3">

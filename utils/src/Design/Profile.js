@@ -1,69 +1,72 @@
-// import React from "react";
-// import { useNavigate } from "react-router-dom";
-
-// const Profile = () => {
-//   const navigate = useNavigate();
-//   const token = localStorage.getItem("token");
-
-//   const logout = async () => {
-//     await fetch("http://localhost:5000/api/auth/logout", {
-//       method: "POST",
-//     });
-
-//     localStorage.removeItem("token");
-//     navigate("/login");
-//   };
-
-//   return (
-//     <>
-//       <div style={{ padding: "10px", background: "#eee" }}>
-//         <h2>My App</h2>
-
-//         {/* SHOW ONLY IF LOGGED IN */}
-//         {token && <button onClick={logout}>Logout</button>}
-//       </div>
-
-//       <h3>Welcome to Profile Page</h3>
-//     </>
-//   );
-// };
-
-// export default Profile;
-
-
-
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Navbar from "../Design/Navbar";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login"); // protect profile
+      return;
+    }
+
+    fetch("http://localhost:5000/api/auth/users", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Unauthorized");
+        return res.json();
+      })
+      .then((data) => setUsers(data || []))
+      .catch(() => setUsers([]));
+  }, [navigate]);
 
   return (
     <>
-      <nav className="navbar navbar-dark bg-dark px-4">
-        <span className="navbar-brand">Auth App</span>
-
-        {token && (
-          <button className="btn btn-outline-light" onClick={logout}>
-            Logout
-          </button>
-        )}
-      </nav>
-
-      <div className="container mt-5">
-        <div className="card shadow p-4 text-center">
-          <h3>Welcome 🎉</h3>
-          <p>You are logged in successfully.</p>
+      <Navbar />
+      <div className="container mt-4">
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h3>All Users</h3>
         </div>
+
+        <table className="table table-bordered table-striped">
+          <thead className="table-dark">
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.length > 0 ? (
+              users.map((user, index) => (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.role}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" className="text-center">
+                  No users found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </>
   );
 };
 
 export default Profile;
+
