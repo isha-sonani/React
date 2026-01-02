@@ -1,17 +1,18 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Signup from "./Design/Signup";
+import Login from "./Design/Login";
+import Profile from "./Design/Profile";
 
-import './App.css';
-import About from './Component/About';
-import Navbar from './Component/Navbar';
- 
 function App() {
   return (
-      <>
-      <Navbar title="Textutils"/>
-      <div className="container my-3">
-      {/* <Textform heading="enter your text"/> */}
-      <About/>
-      </div>
-      </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Signup />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
