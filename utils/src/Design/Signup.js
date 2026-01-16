@@ -53,39 +53,18 @@ const Signup = () => {
               />
             </div>
             <div className="col">
-              <input className="form-control mb-2"
-                name="lastName"
-                placeholder="Last name"
-                value={formData.lastName}
-                onChange={handleChange}
-              />
+              <input className="form-control mb-2"  name="lastName"  placeholder="Last name"  value={formData.lastName}  onChange={handleChange}/>
             </div>
           </div>
 
-          <input className="form-control mb-2"
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-          />
+          <input className="form-control mb-2"  type="email"  name="email"  placeholder="Email"  value={formData.email}  onChange={handleChange}/>
 
-          <input className="form-control mb-2"
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-          />
+          <input className="form-control mb-2"  type="password"  name="password"  placeholder="Password"  value={formData.password}  onChange={handleChange}/>
 
-          <select className="form-select mb-3"
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
-          >
+          <select className="form-select mb-3"  name="role"  value={formData.role}  onChange={handleChange}>
             <option value="">Select Role</option>
             <option value="user">User</option>
-            <option value="admin">Manager</option>
+            <option value="manager">Manager</option>
           </select>
 
           <button className="btn btn-primary w-100">Signup</button><br /><br />
