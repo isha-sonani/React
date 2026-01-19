@@ -7,6 +7,15 @@ export default function Textform(props) {
         SetText(newText);
     }
 
+    const handleclearClick = () =>{
+        SetText("");
+    }
+    const handlecopy = () =>{
+        var text = document.getElementById("mybox")
+        text.select();
+        navigator.clipboard.writeText(text.value)
+    }
+
     const handleloClick = () =>{
         //console.log("Button uppercase cliked",Text);
         let newText = Text.toLowerCase();
@@ -25,6 +34,8 @@ export default function Textform(props) {
         <textarea className="form-control" value={Text} onChange={handleOnChange} id="mybox" rows="8"></textarea><br /><br />
         <button className="btn btn-primary mx-2" onClick={handleupClick}>Convert To Uppercase</button>
         <button className="btn btn-primary mx-2" onClick={handleloClick}>Convert To Lowercase</button>
+        <button className="btn btn-primary mx-2" onClick={handleclearClick}>Clear text</button>
+        <button className="btn btn-primary mx-2" onClick={handlecopy}>Copy text</button>
        </div>
     </div>
     <div className="container my-3">
