@@ -29,21 +29,21 @@ export default function Textform(props) {
   return (
 <>
     <div className="container">
-       <h1>{props.heading}</h1>
+       <h1 style={{color: props.mode==='dark'?'white':'black'}}>this is the text utils</h1>
        <div className="mb-3">
-        <textarea className="form-control" value={Text} onChange={handleOnChange} id="mybox" rows="8"></textarea><br /><br />
+        <textarea className="form-control" value={Text} onChange={handleOnChange} style={{backgroundColor: props.mode=== 'dark'?'grey':'white',color: props.mode=== 'dark'?'white':'black'}} id="mybox" rows="8"></textarea><br /><br />
         <button className="btn btn-primary mx-2" onClick={handleupClick}>Convert To Uppercase</button>
         <button className="btn btn-primary mx-2" onClick={handleloClick}>Convert To Lowercase</button>
         <button className="btn btn-primary mx-2" onClick={handleclearClick}>Clear text</button>
         <button className="btn btn-primary mx-2" onClick={handlecopy}>Copy text</button>
        </div>
     </div>
-    <div className="container my-3">
+    <div className="container my-3" style={{color:props.mode==='dark'?'white':'black'}}>
         <h3>Your Text Summary</h3>
         <p>{Text.split(" ").length} words and {Text.length} characters</p>
         <p>it will take {0.008 * Text.split(" ").length} Minutes to read</p>
         <h4>Preview</h4>
-        <p>{Text}</p>
+        <p>{Text.length>0 ? Text:"enter the text in description to use it..."}</p>
     </div>
 </>
     
